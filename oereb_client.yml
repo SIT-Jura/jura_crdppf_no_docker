@@ -1,0 +1,73 @@
+oereb_client:
+
+  # Application configuration
+  # Mandatory:
+  #   "title" - The application title
+  #   "logo"  - URL to logo image
+  # Optional:
+  #   "icon"  - URL to image used as favicon
+  application:
+    title: ÖREB-Kataster Liechtenstein
+    icon: https://www.llv.li/favicon.ico
+    #logo_canton: https://oereb.geo.zg.ch/oereb/wsgi/oereb/image/logo/canton 
+    #logo_canton: views/static/oereb_testportal.png
+    logo_canton: views/static/logo_llv.png
+    #logo_canton: views/static/logo_llv.svg
+    logo_oereb: views/static/oereb.png
+    local_storage_prefix: oereb_li
+    verifySsl: false
+    proxies:
+
+  # View configuration
+  view:
+    map_x: 2759000
+    map_y: 1224000
+    map_zoom: 0
+    resolutions: [40, 20, 10, 5, 2.5, 1, 0.5, 0.25, 0.1, 0.05]
+
+  # Base layer configuration
+  base_layer:
+    #type: wmts
+    #url: https://services.geo.zg.ch/tc/wmts/1.0.0/WMTSCapabilities.xml
+    #layer: zg.grundbuchplan_ech0056
+    #matrixSet: zg_eCH0056
+    #projection: "EPSG:2056"
+    #style: default
+    #format: image/png
+    type: wms
+    url: https://geodaten.llv.li/mapserver/geoportal
+    params:
+      LAYERS: swisstopo.pk.pixelkarte-grau,TBLI,PLNA,PLSF,PLLI,SOSF,LCSF.oereb,SOOBJ,SOLI,SOPT,LCOBJ,HADR,LOCPOS,LNNA,OSNR,DBK,DPRSF,RESF,OSBP,MBSF,TBBP,CPPT
+      FORMAT: image/png
+    #serverType: myserver
+    ratio: 4
+
+  # Availability layer
+  availability:
+    url: https://geoservices.llv.li/oerebli/service
+    params:
+      LAYERS: llv.abi.oreb.published
+      FORMAT: image/png
+
+  # Search field configuration
+  search:
+    api:
+      url: search/fulltext
+      limit: 30
+    wfs:
+      #url: https://geowms.bl.ch
+      url:
+      limit: 5
+
+  # Support
+  support:
+    office1: Amt für Bau und Infrastruktur
+    office2: Fachbereich Vermessung und Geoinformation
+    street: Städtle 38
+    city: 9590 Vaduz
+    email: info.abi@llv.li
+    phone: +423 236 60 72
+ 
+  # Custom CSS file
+  # Add the URL to a custom CSS file to adjust styles.
+  custom_css_url: views/static/oereb_llv.css
