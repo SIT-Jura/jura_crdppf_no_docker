@@ -17,8 +17,11 @@ Then import a database dump from Jura:
 pg_restore --host localhost --user postgres -d test_jura <the-dump-file-from-jura>
 
 Then start application server with pserve:
-make build
+  
+make -f oereb-test.mk build
+  
 source .venv/bin/activate 
+
 pserve production.ini
 
 Then in a separate terminal try a versions request:
