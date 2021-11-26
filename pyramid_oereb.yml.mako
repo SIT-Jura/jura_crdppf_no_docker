@@ -99,6 +99,20 @@ pyramid_oereb:
   # you can change it here to avoid name collision. Of course you can configure the application to load this
   # data from elsewhere.
   app_schema:
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+      - data_code: Hinweis
+        extract_code: Hint
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
     db_connection: &main_db_connection
@@ -106,7 +120,7 @@ pyramid_oereb:
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
-  # your importing process!
+  # your importing process! 
   srid: 2056
 
   # definition of the available geometry types for different checks
