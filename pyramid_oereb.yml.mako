@@ -427,7 +427,8 @@ pyramid_oereb:
   # the source. The model must implement the same field names and information as the default model does.
   real_estate_type:
     lookup:
-      - data_code: Liegenschaft
+       # wkaltz: changed first data_code to fit current extract
+      - data_code: RealEstate
         transfer_code: Liegenschaft
         extract_code: RealEstate
       - data_code: SelbstRecht.Baurecht
@@ -539,55 +540,6 @@ pyramid_oereb:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
         schema_name: land_use_plans
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.JU.ReservedAreas
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: ch_ju_reserved_areas
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1250,55 +1202,6 @@ pyramid_oereb:
         extract_code: Hint
         transfer_code: Hinweis
 
-  - code: ch.Laermempfindlichkeitsstufen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: noise_sensitivity_levels
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
   - code: ch.StatischeWaldgrenzen
     geometry_type: LINESTRING
     thresholds:
@@ -1328,7 +1231,8 @@ pyramid_oereb:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
     law_status_lookup:
-      - data_code: inKraft
+      # wkaltz: changed to fit current extract
+      - data_code: inForce
         extract_code: inForce
         transfer_code: inKraft
       - data_code: AenderungMitVorwirkung
@@ -1337,14 +1241,15 @@ pyramid_oereb:
       - data_code: AenderungOhneVorwirkung
         extract_code: changeWithoutPreEffect
         transfer_code: AenderungOhneVorwirkung
+    # wkaltz: changed to fit current extract
     document_types_lookup:
-      - data_code: Rechtsvorschrift
+      - data_code: Legal provision
         extract_code: LegalProvision
         transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
+      - data_code: Legal basis
         extract_code: Law
         transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
+      - data_code: Reference
         extract_code: Hint
         transfer_code: Hinweis
 
@@ -1373,55 +1278,6 @@ pyramid_oereb:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
         schema_name: forest_distance_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.JU.InventoriesArchaeologicalPaleontologicalSites
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: ch_ju_inventories_archaelogical_paleontological_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
