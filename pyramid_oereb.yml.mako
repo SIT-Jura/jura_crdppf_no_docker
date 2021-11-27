@@ -101,17 +101,23 @@ pyramid_oereb:
   app_schema:
     law_status_lookup:
       - data_code: inKraft
+        transfer_code: inKraft
         extract_code: inForce
       - data_code: AenderungMitVorwirkung
+        transfer_code: AenderungMitVorwirkung
         extract_code: changeWithPreEffect
       - data_code: AenderungOhneVorwirkung
+        transfer_code: AenderungOhneVorwirkung
         extract_code: changeWithoutPreEffect
     document_types_lookup:
       - data_code: Rechtsvorschrift
+        transfer_code: Rechtsvorschrift
         extract_code: LegalProvision
       - data_code: GesetzlicheGrundlage
+        transfer_code: GesetzlicheGrundlage
         extract_code: Law
       - data_code: Hinweis
+        transfer_code: Hinweis
         extract_code: Hint
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
@@ -171,15 +177,15 @@ pyramid_oereb:
     plan_for_land_register:
       # WMS URL to query the plan for land register used for all themes pages
       reference_wms:
-        de: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
+        fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
       layer_index: 0
-      layer_opacity: 1
+      layer_opacity: 1.0
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
       reference_wms:
-        de: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
+        fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
       layer_index: 0
-      layer_opacity: 1
+      layer_opacity: 1.0
     visualisation:
       method: pyramid_oereb.standard.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
@@ -422,23 +428,23 @@ pyramid_oereb:
   real_estate_type:
     lookup:
       - data_code: Liegenschaft
-        extract_code: RealEstate
         transfer_code: Liegenschaft
+        extract_code: RealEstate
       - data_code: SelbstRecht.Baurecht
-        extract_code: Distinct_and_permanent_rights.BuildingRight
         transfer_code: SelbstRecht.Baurecht
+        extract_code: Distinct_and_permanent_rights.BuildingRight
       - data_code: SelbstRecht.Quellenrecht
-        extract_code: Distinct_and_permanent_rights.right_to_spring_water
         transfer_code: SelbstRecht.Quellenrecht
+        extract_code: Distinct_and_permanent_rights.right_to_spring_water
       - data_code: SelbstRecht.Konzessionsrecht
-        extract_code: Distinct_and_permanent_rights.concession
         transfer_code: SelbstRecht.Konzessionsrecht
+        extract_code: Distinct_and_permanent_rights.concession
       - data_code: SelbstRecht.weitere
-        extract_code: Distinct_and_permanent_rights.other
         transfer_code: SelbstRecht.weitere
+        extract_code: Distinct_and_permanent_rights.other
       - data_code: Bergwerk
-        extract_code: Mineral_rights
         transfer_code: Bergwerk
+        extract_code: Mineral_rights
     # The real estate type text elements must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an

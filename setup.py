@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 requires = [
-    'pyramid_oereb[recommend]==2.0.0b4',
+    'pyramid_oereb[recommend]==2.0.0b5',
      #'oereb-client==1.3.8'
      'oereb-client==2.0.0.dev202110280843'
 ]
