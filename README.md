@@ -22,6 +22,10 @@ create database test_jura;
 
 create extension postgis;
 
+create user "www-data";
+
+alter user "www-data" with password 'www-data';
+
 Then import a database dump from Jura:
 
 pg_restore --host localhost --user postgres -d test_jura <the-dump-file-from-jura>
