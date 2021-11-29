@@ -613,6 +613,54 @@ pyramid_oereb:
         extract_code: Hint
         transfer_code: Hinweis
 
+  - code: ch.Laermempfindlichkeitsstufen
+    geometry_type: POLYGON
+    thresholds:
+      length:
+        limit: 1.0
+        unit: 'm'
+        precision: 2
+      area:
+        limit: 1.0
+        unit: 'm²'
+        precision: 2
+      percentage:
+        precision: 1
+    language: fr
+    federal: false
+    standard: true
+    view_service:
+      layer_index: 1
+      layer_opacity: 1.0
+    source:
+      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        schema_name: noise_sensitivity_levels
+    hooks:
+      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+        transfer_code: inKraft
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+        transfer_code: AenderungMitVorwirkung
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+        transfer_code: AenderungOhneVorwirkung
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+        transfer_code: Rechtsvorschrift
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+        transfer_code: GesetzlicheGrundlage
+      - data_code: Hinweis
+        extract_code: Hint
+        transfer_code: Hinweis
   - code: ch.BaulinienNationalstrassen
     geometry_type: LINESTRING
     thresholds:

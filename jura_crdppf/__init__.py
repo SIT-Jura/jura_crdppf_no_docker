@@ -15,9 +15,9 @@ def main(_, **settings):
         })
 
     # Include pyramid_oereb back-end configuration
-    config.include('pyramid_oereb', route_prefix='oereb')
+    config.include('pyramid_oereb', route_prefix='oerebv2')
     # Including oereb_client configuration
-    config.include('oereb_client', route_prefix='oereb')
+    config.include('oereb_client', route_prefix='oerebv2')
 
     config.scan()
     return config.make_wsgi_app()

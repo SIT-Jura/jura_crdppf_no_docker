@@ -32,7 +32,8 @@ help:
 build: .venv/install-timestamp templates-timestamp
 
 .venv/timestamp:
-	virtualenv --python=python3 .venv #   --no-site-packages
+	#virtualenv --python=python3 .venv
+	python3 -m virtualenv --python=python3.7 .venv
 	touch $@
 
 .venv/install-timestamp: .venv/timestamp setup.py
