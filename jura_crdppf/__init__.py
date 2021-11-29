@@ -18,6 +18,7 @@ def main(_, **settings):
     config.include('pyramid_oereb', route_prefix='oerebv2')
     # Including oereb_client configuration
     config.include('oereb_client', route_prefix='oerebv2')
+    config.include('jura_crdppf.views', route_prefix='oerebv2')
 
     config.scan()
     return config.make_wsgi_app()
