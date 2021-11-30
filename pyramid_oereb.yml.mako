@@ -55,7 +55,7 @@ pyramid_oereb:
     pdf_map_size_millimeters: [174, 99]
     # Base URL with application of the print server
     #base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
-    base_url: http://localhost:8080/print-server/print/oereb
+    base_url: http://localhost:8680/print/oereb
     # Name of the print template to use
     template_name: A4 portrait
     # The headers sent to the print
@@ -427,8 +427,7 @@ pyramid_oereb:
   # the source. The model must implement the same field names and information as the default model does.
   real_estate_type:
     lookup:
-       # wkaltz: changed first data_code to fit current extract
-      - data_code: RealEstate
+      - data_code: Liegenschaft
         transfer_code: Liegenschaft
         extract_code: RealEstate
       - data_code: SelbstRecht.Baurecht
@@ -661,6 +660,7 @@ pyramid_oereb:
       - data_code: Hinweis
         extract_code: Hint
         transfer_code: Hinweis
+        
   - code: ch.BaulinienNationalstrassen
     geometry_type: LINESTRING
     thresholds:
@@ -1280,7 +1280,7 @@ pyramid_oereb:
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       # wkaltz: changed to fit current extract
-      - data_code: inForce
+      - data_code: inKraft
         extract_code: inForce
         transfer_code: inKraft
       - data_code: AenderungMitVorwirkung
@@ -1291,13 +1291,13 @@ pyramid_oereb:
         transfer_code: AenderungOhneVorwirkung
     # wkaltz: changed to fit current extract
     document_types_lookup:
-      - data_code: Legal provision
+      - data_code: Rechtsvorschrift
         extract_code: LegalProvision
         transfer_code: Rechtsvorschrift
-      - data_code: Legal basis
+      - data_code: GesetzlicheGrundlage
         extract_code: Law
         transfer_code: GesetzlicheGrundlage
-      - data_code: Reference
+      - data_code: Hinweis
         extract_code: Hint
         transfer_code: Hinweis
 

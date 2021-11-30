@@ -14,7 +14,7 @@ oereb_client:
     title:
       - Language: fr
         Text: CRDPPF Jura
-    icon: https://geo.jura.ch/favicon.ico
+    icon: views/static/favicon.ico
     logo_canton:
       - Language: fr
         URL: views/static/logo_jura.png
@@ -28,8 +28,8 @@ oereb_client:
 
   # View configuration
   view:
-    map_x: 2615000
-    map_y: 1255000
+    map_x: 2580387
+    map_y: 1242892
     map_zoom: 2
     resolutions: [250, 100, 50, 20, 10, 5, 2.5, 2, 1.5, 1, 0.5, 0.25, 0.1, 0.05, 0.025, 0.01]
 
@@ -37,8 +37,10 @@ oereb_client:
   # TODO replace by Jura base layer
   base_layer:
     type: wmts
-    url: https://tile.geoview.bl.ch/1.0.0/WMTSCapabilities.xml
-    layer: grundkarte_sw
+#    url: https://tile.geoview.bl.ch/1.0.0/WMTSCapabilities.xml
+    url: https://geo.jura.ch/tiles/1.0.0/WMTSCapabilities.xml
+#    layer: grundkarte_sw
+    layer: plan_cadastral
     matrixSet: swissgrid
     projection: "EPSG:2056"
     style: default
@@ -47,7 +49,8 @@ oereb_client:
   # Availability layer
   # TODO replace by Jura availability layer
   availability:
-    url: https://geoview.bl.ch/main/oereb/mapservproxy
+##    url: https://geoview.bl.ch/main/oereb/mapservproxy
+    url: https://geo-test.jura.ch/rwunderlich/mapserv_proxy?ogcserver=Main PNG
     params:
       LAYERS: oereb_published_municipalities
       FORMAT: image/png
@@ -56,13 +59,22 @@ oereb_client:
   # TODO replace by Jura search
   search:
     - title:
-        - Language: en
+        - Language: fr
           Text: E-GRID
-      url: https://geoview.bl.ch/main/wsgi/bl_fulltextsearch?query={prefix}+{term}&limit={limit}
+#      url: https://geoview.bl.ch/main/wsgi/bl_fulltextsearch?query={prefix}+{term}&limit={limit}
+      url: https://geo.jura.ch/search?query={prefix}+{term}&limit={limit}
       params:
         limit: 5
         prefix: egr
       hook_method: samples.search.hook_egrid
+    - title:
+        - Language: fr
+          Text: Parcelle
+      url: https://geo.jura.ch/search?query={prefix}+{term}&limit={limit}
+      params:
+        limit: 5
+        prefix: 
+      hook_method: samples.search.hook_real_estate
  #   - title:
  #       - Language: en
  #         Text: Address
