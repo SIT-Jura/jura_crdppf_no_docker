@@ -15,10 +15,10 @@ def main(_, **settings):
         })
 
     # Include pyramid_oereb back-end configuration
-    config.include('pyramid_oereb', route_prefix='oerebv2')
+    config.include('pyramid_oereb', route_prefix='crdppf')
     # Including oereb_client configuration
-    config.include('oereb_client', route_prefix='oerebv2')
-    config.include('jura_crdppf.views', route_prefix='oerebv2')
+    config.include('oereb_client', route_prefix='crdppf')
+    config.include('jura_crdppf.views', route_prefix='crdppf')
 
     config.scan()
     return config.make_wsgi_app()
