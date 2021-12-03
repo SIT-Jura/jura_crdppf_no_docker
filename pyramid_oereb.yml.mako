@@ -40,7 +40,7 @@ pyramid_oereb:
     # Define whether all geometry data must be included when sending the data to the print service
     with_geometry: False
     # Set an archive path to keep a copy of each generated pdf.
-    pdf_archive_path: /archive
+    # pdf_archive_path: /archive
     # The minimum buffer in pixel at 72 DPI between the real estate and the map's border. If your print
     # system draws a margin around the feature (the real estate), you have to set your buffer
     # here accordingly.
@@ -122,7 +122,7 @@ pyramid_oereb:
     name: pyramid_oereb_main
     models: pyramid_oereb.standard.models.main
     db_connection: &main_db_connection
-      ${db_connection}
+      postgresql://www-data:www-data@localhost:5432/pyramid_oereb
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
@@ -177,13 +177,13 @@ pyramid_oereb:
     plan_for_land_register:
       # WMS URL to query the plan for land register used for all themes pages
       reference_wms:
-        fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
+        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
       layer_index: 0
       layer_opacity: 1.0
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
       reference_wms:
-        fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
+        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
       layer_index: 0
       layer_opacity: 1.0
     visualisation:
@@ -511,6 +511,56 @@ pyramid_oereb:
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
   plrs:
+
+  - code: ch.Planungszonen
+    geometry_type: POLYGON
+    thresholds:
+      length:
+        limit: 1.0
+        unit: 'm'
+        precision: 2
+      area:
+        limit: 1.0
+        unit: 'm²'
+        precision: 2
+      percentage:
+        precision: 1
+    language: fr
+    federal: false
+    standard: true
+    view_service:
+      layer_index: 1
+      layer_opacity: 0.75
+    source:
+      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        schema_name: reserved_areas
+    hooks:
+      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+        transfer_code: inKraft
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+        transfer_code: AenderungMitVorwirkung
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+        transfer_code: AenderungOhneVorwirkung
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+        transfer_code: Rechtsvorschrift
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+        transfer_code: GesetzlicheGrundlage
+      - data_code: Hinweis
+        extract_code: Hint
+        transfer_code: Hinweis
+
 
   - code: ch.Nutzungsplanung
     geometry_type: GEOMETRYCOLLECTION
@@ -906,7 +956,7 @@ pyramid_oereb:
         extract_code: Hint
         transfer_code: Hinweis
 
-  - code: ch.Sicherheitszonenplan
+  - code: ch.SicherheitszonenplanFlughafen
     geometry_type: MULTIPOLYGON
     thresholds:
       length:
@@ -1326,6 +1376,55 @@ pyramid_oereb:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
         schema_name: forest_distance_lines
+    hooks:
+      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+        transfer_code: inKraft
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+        transfer_code: AenderungMitVorwirkung
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+        transfer_code: AenderungOhneVorwirkung
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+        transfer_code: Rechtsvorschrift
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+        transfer_code: GesetzlicheGrundlage
+      - data_code: Hinweis
+        extract_code: Hint
+        transfer_code: Hinweis
+
+  - code: ch_ju_inventories_archaelogical_paleontological_sites
+    geometry_type: POLYGON
+    thresholds:
+      length:
+        limit: 1.0
+        unit: 'm'
+        precision: 2
+      area:
+        limit: 1.0
+        unit: 'm²'
+        precision: 2
+      percentage:
+        precision: 1
+    language: fr
+    federal: false
+    standard: true
+    view_service:
+      layer_index: 1
+      layer_opacity: 0.75
+    source:
+      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        schema_name: ch_ju_inventories_archaelogical_paleontological_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
