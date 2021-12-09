@@ -956,7 +956,7 @@ pyramid_oereb:
         extract_code: Hint
         transfer_code: Hinweis
 
-  - code: ch.SicherheitszonenplanFlughafen
+  - code: ch.Sicherheitszonenplan
     geometry_type: MULTIPOLYGON
     thresholds:
       length:
