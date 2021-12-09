@@ -100,10 +100,12 @@ oereb_client:
       - Language: fr
         Text: Aller sur le géoportail cantonal
     url: https://geo.jura.ch
-#    params:
-#      - "wfs_layer=grundstueck"
-#      - "wfs_egris_egrid={egrid}"
-#      - "no_redirect="
+    params:
+      - "wfs_layer=cadastre_bienfond"
+      - "wfs_egris_egrid={egrid}"
+      - "no_redirect="
+#       - "theme=CRDPPF"
+#      - "tree_groups=CRDPPF"
 #      - "tree_groups=Bau- und Strassenlinien,Kataster belasteter Standorte,Lärm,Nutzungsplan"
 #      - "tree_group_layers_Bau- und Strassenlinien=statische_waldgrenzen,baulinien_kommunal_waldabstandslinien,baulinien_kommunal,baulinien_kantonal"
 #      - "tree_group_layers_Kataster belasteter Standorte=kbs_kataster_standorte"
