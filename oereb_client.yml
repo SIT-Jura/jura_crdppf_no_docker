@@ -68,14 +68,15 @@ oereb_client:
         limit: 5
         prefix: egr
       hook_method: samples.search.hook_egrid
-    - title:
-        - Language: fr
-          Text: Parcelle
-      url: https://geo-test.jura.ch/search?query={prefix}+{term}&limit={limit}
-      params:
-        limit: 5
-        prefix: 
-      hook_method: samples.search.hook_real_estate
+      verify_certificate: False
+#    - title:
+#        - Language: fr
+#          Text: Parcelle
+#      url: https://geo-test.jura.ch/search?query={prefix}+{term}&limit={limit}
+#      params:
+#        limit: 5
+#        prefix: 
+#      hook_method: samples.search.hook_real_estate
  #   - title:
  #       - Language: en
  #         Text: Address
