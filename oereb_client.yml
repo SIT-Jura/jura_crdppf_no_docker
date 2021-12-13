@@ -57,17 +57,15 @@ oereb_client:
       FORMAT: image/png
 
   # Search configuration
-  # TODO replace by Jura search
   search:
     - title:
         - Language: fr
           Text: E-GRID
-#      url: https://geoview.bl.ch/main/wsgi/bl_fulltextsearch?query={prefix}+{term}&limit={limit}
       url: https://geo-test.jura.ch/search?query={prefix}+{term}&limit={limit}
       params:
         limit: 5
         prefix: egr
-      hook_method: samples.search.hook_egrid
+      hook_method: jura_crdppf.views.search.hook_egrid
       verify_certificate: False
 #    - title:
 #        - Language: fr
