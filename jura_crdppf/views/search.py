@@ -13,7 +13,7 @@ def hook_egrid(config, response, lang, default_lang):
     results = []
 
     for result in response.get('features'):
-        egrid = result.get('properties').get('label')[0:-8]
+        egrid = result.get('properties').get('label')[8:]
         results.append({
             'label': egrid,
             'egrid': egrid
