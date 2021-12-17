@@ -36,7 +36,7 @@ pyramid_oereb:
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
     # Configuration for MapFish-Print print service
-    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
     # Define whether all geometry data must be included when sending the data to the print service
     with_geometry: False
     # Set an archive path to keep a copy of each generated pdf.
@@ -120,7 +120,7 @@ pyramid_oereb:
         transfer_code: Hinweis
         extract_code: Hint
     name: pyramid_oereb_main
-    models: pyramid_oereb.standard.models.main
+    models: pyramid_oereb.contrib.data_sources.standard.models.main
     db_connection: &main_db_connection
       postgresql://www-data:www-data@localhost:5432/pyramid_oereb
 
@@ -187,7 +187,7 @@ pyramid_oereb:
       layer_index: 0
       layer_opacity: 1.0
     visualisation:
-      method: pyramid_oereb.standard.hook_methods.produce_sld_content
+      method: pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
       url_params:
         - egrid
@@ -201,13 +201,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.real_estate.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the real estate database table.
-        model: pyramid_oereb.standard.models.main.RealEstate
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate
 
   # The processor of the oereb project needs access to address data. In the standard configuration, this
   # is assumed to be read from a database. Hint: If you want to read the addresses out of an existing database
@@ -218,13 +218,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.address.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the address database table.
-        model: pyramid_oereb.standard.models.main.Address
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
         # Alternatively you can use the search service of the GeoAdmin API to look up the real estate by
         # address. Replace the configuration above with the following lines:
         # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
@@ -246,13 +246,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.municipality.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the municipality database table.
-        model: pyramid_oereb.standard.models.main.Municipality
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Municipality
 
   # The extract provides logos. Therefore you need to provide the logos from the database
   # or by a path to these logos. Note: This must be a valid absolute system path available
@@ -276,13 +276,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the logo images database table.
-        model: pyramid_oereb.standard.models.main.Logo
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
 
    # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -293,13 +293,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.DocumentTypeText
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
 
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -310,13 +310,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.document.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.Document
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Document
 
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -327,13 +327,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.office.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.Office
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Office
 
   # The processor of the oereb project needs access to theme data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the themes out of an existing database
@@ -344,13 +344,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the theme database table.
-        model: pyramid_oereb.standard.models.main.Theme
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
 
   # The processor of the oereb project needs access to theme document data. In the standard configuration
   # this is assumed to be read from a database. Hint: If you want to read the theme documents out of an existing
@@ -361,13 +361,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.theme_document.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the theme database table.
-        model: pyramid_oereb.standard.models.main.ThemeDocument
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument
 
   # The processor of the oereb project needs access to glossary data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the glossary out of an existing database
@@ -378,13 +378,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.glossary.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the glossary database table.
-        model: pyramid_oereb.standard.models.main.Glossary
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Glossary
 
   # The processor of the oereb project needs access to disclaimer data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the exclusion of
@@ -396,13 +396,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.disclaimer.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the disclaimer database table.
-        model: pyramid_oereb.standard.models.main.Disclaimer
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
 
   # The processor of the oereb project joins the law status labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -413,13 +413,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.LawStatus
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
 
   # The processor of the oereb project joins the real estate type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -449,13 +449,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
-        model: pyramid_oereb.standard.models.main.RealEstateType
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
 
   # The processor of the oereb project needs access to general information data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the general
@@ -467,13 +467,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the general_information database table.
-        model: pyramid_oereb.standard.models.main.GeneralInformation
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
 
   # The processor of the oereb project needs access to map layering data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the map layering out of an existing database
@@ -484,13 +484,13 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.map_layering.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
         # The model which maps the map layering database table.
-        model: pyramid_oereb.standard.models.main.MapLayering
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering
 
   # The extract is the entry point which binds everything
   # related to data together.
@@ -498,10 +498,10 @@ pyramid_oereb:
     # Information about the official survey (last update and provider) used as a base map in the extract
     base_data:
       methods:
-        date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
-        provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
+        date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
+        provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
 
-    sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
+    sort_within_themes_method: pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
     # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
@@ -532,14 +532,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: reserved_areas
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -584,14 +584,116 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: land_use_plans
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+        transfer_code: inKraft
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+        transfer_code: AenderungMitVorwirkung
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+        transfer_code: AenderungOhneVorwirkung
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+        transfer_code: Rechtsvorschrift
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+        transfer_code: GesetzlicheGrundlage
+      - data_code: Hinweis
+        extract_code: Hint
+        transfer_code: Hinweis
+
+  - code: ch.Nutzungsplanung.subtheme1
+    geometry_type: GEOMETRYCOLLECTION
+    # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
+    # and not as calculation errors (false trues) due to topological imperfections
+    thresholds:
+      length:
+        limit: 1.0
+        unit: 'm'
+        precision: 2
+      area:
+        limit: 1.0
+        unit: 'm²'
+        precision: 2
+      percentage:
+        precision: 1
+    language: fr
+    federal: false
+    standard: true
+    view_service:
+      layer_index: 1
+      layer_opacity: 1.0
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+        schema_name: land_use_plans
+    hooks:
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+    law_status_lookup:
+      - data_code: inKraft
+        extract_code: inForce
+        transfer_code: inKraft
+      - data_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+        transfer_code: AenderungMitVorwirkung
+      - data_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+        transfer_code: AenderungOhneVorwirkung
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        extract_code: LegalProvision
+        transfer_code: Rechtsvorschrift
+      - data_code: GesetzlicheGrundlage
+        extract_code: Law
+        transfer_code: GesetzlicheGrundlage
+      - data_code: Hinweis
+        extract_code: Hint
+        transfer_code: Hinweis
+
+  - code: ch.Nutzungsplanung.subtheme2
+    geometry_type: GEOMETRYCOLLECTION
+    # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
+    # and not as calculation errors (false trues) due to topological imperfections
+    thresholds:
+      length:
+        limit: 1.0
+        unit: 'm'
+        precision: 2
+      area:
+        limit: 1.0
+        unit: 'm²'
+        precision: 2
+      percentage:
+        precision: 1
+    language: fr
+    federal: false
+    standard: true
+    view_service:
+      layer_index: 1
+      layer_opacity: 1.0
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+        schema_name: land_use_plans
+    hooks:
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -633,14 +735,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: motorways_project_planing_zones
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -682,14 +784,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: noise_sensitivity_levels
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -731,14 +833,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: motorways_building_lines
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -780,14 +882,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: railways_project_planning_zones
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -829,14 +931,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: railways_building_lines
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -878,14 +980,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: airports_project_planning_zones
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -927,14 +1029,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: airports_building_lines
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -976,14 +1078,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: airports_security_zone_plans
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1026,14 +1128,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: contaminated_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1075,14 +1177,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: contaminated_military_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1124,14 +1226,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: contaminated_civil_aviation_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1173,14 +1275,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: contaminated_public_transport_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1222,14 +1324,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: groundwater_protection_zones
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1271,14 +1373,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: groundwater_protection_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1320,14 +1422,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: forest_perimeters
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       # wkaltz: changed to fit current extract
       - data_code: inKraft
@@ -1371,14 +1473,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 1.0
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: forest_distance_lines
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1420,14 +1522,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: nominal_high_voltage_reserved_zones
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1469,14 +1571,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: high_voltage_installations_building_lines
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
@@ -1518,14 +1620,14 @@ pyramid_oereb:
       layer_index: 1
       layer_opacity: 0.75
     source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
       params:
         db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
         schema_name: ch_ju_inventories_archaelogical_paleontological_sites
     hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
     law_status_lookup:
       - data_code: inKraft
         extract_code: inForce
