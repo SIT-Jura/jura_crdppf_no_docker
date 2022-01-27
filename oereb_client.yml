@@ -51,7 +51,7 @@ oereb_client:
   # TODO replace by Jura availability layer
   availability:
 ##    url: https://geoview.bl.ch/main/oereb/mapservproxy
-    url: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main%20PNG
+    url: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main_PNG
     params:
       LAYERS: oereb_published_municipalities
       FORMAT: image/png
