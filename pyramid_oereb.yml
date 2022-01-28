@@ -80,7 +80,7 @@ pyramid_oereb:
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
-      ogcserver: 'Main PNG'
+      ogcserver: 'Main_PNG'
 
     # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
     # then use the configuration option wms_url_keep_params.
