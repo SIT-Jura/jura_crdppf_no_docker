@@ -80,7 +80,7 @@ pyramid_oereb:
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
-      ogcserver: 'Main PNG'
+      ogcserver: 'Main_PNG'
 
     # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
     # then use the configuration option wms_url_keep_params.
@@ -177,13 +177,13 @@ pyramid_oereb:
     plan_for_land_register:
       # WMS URL to query the plan for land register used for all themes pages
       reference_wms:
-        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
+        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
       layer_index: 0
       layer_opacity: 1.0
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
       reference_wms:
-        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
+        fr: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
       layer_index: 0
       layer_opacity: 1.0
     visualisation:
@@ -613,107 +613,6 @@ pyramid_oereb:
         extract_code: Hint
         transfer_code: Hinweis
 
-  - code: ch.Nutzungsplanung.subtheme1
-    geometry_type: GEOMETRYCOLLECTION
-    # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
-    # and not as calculation errors (false trues) due to topological imperfections
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
-        schema_name: land_use_plans
-    hooks:
-      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Nutzungsplanung.subtheme2
-    geometry_type: GEOMETRYCOLLECTION
-    # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
-    # and not as calculation errors (false trues) due to topological imperfections
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
-        schema_name: land_use_plans
-    hooks:
-      get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
 
   - code: ch.ProjektierungszonenNationalstrassen
     geometry_type: MULTIPOLYGON
